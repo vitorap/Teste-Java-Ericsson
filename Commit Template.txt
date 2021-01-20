@@ -1,0 +1,31 @@
+# Quick Description
+
+
+# ## Tags ##
+#
+# [ ]  Add = Create a capability e.g. feature, test, dependency.
+# [ ]  Drop = Delete a capability e.g. feature, test, dependency.
+# [ ]  Fix = Fix an issue e.g. bug, typo, accident, misstatement.
+# [ ]  Bump = Increase the version of something e.g. a dependency.
+# [ ]  Make = Change the build process, or tools, or infrastructure.
+# [ ]  Start = Begin doing something; e.g. enable a toggle, feature flag, etc.
+# [ ]  Stop = End doing something; e.g. disable a toggle, feature flag, etc.
+# [ ]  Optimize = A change that MUST be about performance, e.g. speed up code.
+# [ ]  Document = A change that MUST be in the documentation, e.g. help files.
+# [ ]  Refactor = A change that MUST be refactoring.
+# [ ]  Reformat = A change that MUST be format, e.g. indent line, trim space, etc.
+# [ ]  Rephrase = A change that MUST be textual, e.g. edit a comment, doc, etc.
+#
+#
+#
+# ## If there is something difference to reproduce, follow this steps ##
+#
+#
+#
+#
+# ## Additional Information? ##
+#
+#
+#
+#
+#
