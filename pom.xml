@@ -12,7 +12,7 @@
 	<artifactId>testeEricsson</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>testeEricsson</name>
-	<description>Projeto de aula da Udemy</description>
+	<description>Teste de Java e Springboot para vaga na Ericsson</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
