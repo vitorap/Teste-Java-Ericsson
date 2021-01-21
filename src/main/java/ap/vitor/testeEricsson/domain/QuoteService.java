@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -16,10 +15,10 @@ public class QuoteService {
 
 
     public Quote save(Quote quote) {
-        return  rep.save(quote);
+        return rep.save(quote);
     }
 
-    public List<Quote> findByIdStock(Long idStock){
+    public List<Quote> findByIdStock(Long idStock) {
         List<Quote> quotes = rep.findByStock_IdStock(idStock);
 
         return CollectionUtils.isEmpty(quotes) ? new ArrayList<>() : quotes;

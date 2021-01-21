@@ -1,9 +1,9 @@
 package ap.vitor.testeEricsson.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -19,8 +19,8 @@ public class Quote {
     @Column(nullable = false)
     private Long idQuote;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="idStock")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idStock")
     @JsonIgnore
     private Stock stock;
 

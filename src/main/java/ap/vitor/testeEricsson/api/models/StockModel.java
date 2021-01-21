@@ -9,21 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class StockModel
-{
+public class StockModel {
     private String name;
     private List<Float> quotes;
 
 
-    public static StockModel fromStockEntity(Stock s)
-    {
+    public static StockModel fromStockEntity(Stock s) {
         StockModel model = new StockModel();
         model.setName(s.getName());
         List<Float> quotes = new ArrayList<>();
 
-        if(!CollectionUtils.isEmpty(s.getQuotes())){
-            for (Quote q : s.getQuotes())
-            {
+        if (!CollectionUtils.isEmpty(s.getQuotes())) {
+            for (Quote q : s.getQuotes()) {
                 quotes.add(q.getValue());
             }
             model.setQuotes(quotes);

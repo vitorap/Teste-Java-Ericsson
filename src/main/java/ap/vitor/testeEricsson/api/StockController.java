@@ -26,14 +26,12 @@ public class StockController {
 
 //    Read All Stock
 //    URL: http://<host>:<port>/stock HTTP Method: GET
-
     @GetMapping()
     public Iterable<StockModel> get() {
         List<StockModel> models = new ArrayList<>();
-        List<Stock> stocks = (List<Stock>)stockService.getStocks();
+        List<Stock> stocks = (List<Stock>) stockService.getStocks();
 
-        for (Stock s : stocks)
-        {
+        for (Stock s : stocks) {
             models.add(StockModel.fromStockEntity(s));
         }
 
@@ -42,14 +40,11 @@ public class StockController {
 
 //    Read Stock by Name
 //    URL: http://<host>:<port>/stock?name=<stock_name> HTTP Method: GET
-
-
     @GetMapping(params = "name")
-    public StockModel get(@RequestParam("name") String name){
-
+    public StockModel get(@RequestParam("name") String name) {
         Stock s = stockService.getStock(name);
 
-        if(s == null)
+        if (s == null)
             return null;
 
         StockModel model = new StockModel();
@@ -60,18 +55,14 @@ public class StockController {
 
 //    Create Stock
 //    URL: http://<host>:<port>/stock HTTP Method: POST
-
-
     @PostMapping
-    public StockModel post(@RequestBody StockModel stockModel){
+    public StockModel post(@RequestBody StockModel stockModel) {
         Stock s = new Stock();
         s.setName(stockModel.getName());
         s = stockService.save(s);
 
-
-        if(!CollectionUtils.isEmpty(stockModel.getQuotes())){
-            for (float p : stockModel.getQuotes())
-            {
+        if (!CollectionUtils.isEmpty(stockModel.getQuotes())) {
+            for (float p : stockModel.getQuotes()) {
                 Quote q = new Quote();
                 q.setValue(p);
                 q.setStock(s);
@@ -88,19 +79,16 @@ public class StockController {
 
 //    Update Stock
 //    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: PATCH
-
-
     @PatchMapping("/{name}")
-    public StockModel patch(@PathVariable String name, @RequestBody QuoteModel quoteModel){
+    public StockModel patch(@PathVariable String name, @RequestBody QuoteModel quoteModel) {
         System.out.println("nome eh" + name);
         Stock s = stockService.getStock(name);
 
-        if(s == null)
+        if (s == null)
             return null;
 
-        if(!CollectionUtils.isEmpty(quoteModel.getQuotes())){
-            for (float p : quoteModel.getQuotes())
-            {
+        if (!CollectionUtils.isEmpty(quoteModel.getQuotes())) {
+            for (float p : quoteModel.getQuotes()) {
                 Quote q = new Quote();
                 q.setValue(p);
                 q.setStock(s);
@@ -115,9 +103,8 @@ public class StockController {
 
 //    Delete Stock
 //    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: DELETE
-
     @DeleteMapping("/{name}")
-    public void delete(@PathVariable String name){
+    public void delete(@PathVariable String name) {
 
         stockService.deleteStock(name);
     }
