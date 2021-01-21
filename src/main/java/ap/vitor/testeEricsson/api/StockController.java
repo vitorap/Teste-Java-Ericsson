@@ -1,5 +1,6 @@
 package ap.vitor.testeEricsson.api;
 
+import ap.vitor.testeEricsson.api.models.QuoteModel;
 import ap.vitor.testeEricsson.api.models.StockModel;
 import ap.vitor.testeEricsson.domain.Quote;
 import ap.vitor.testeEricsson.domain.QuoteService;
@@ -89,26 +90,27 @@ public class StockController {
 //    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: PATCH
 
 
-//    @PatchMapping(params = "name")
-//    public StockModel patch(@RequestParam("name") String name @RequestBody StockModel stockModel){
-//        Stock s = stockService.getStockByName(name);
-//
-//
-//        if(!CollectionUtils.isEmpty(stockModel.getQuotes())){
-//            for (float p : stockModel.getQuotes())
-//            {
-//                Quote q = new Quote();
-//                q.setValue(p);
-//                q.setStock(s);
-//
-//                q = quoteService.save(q);
-//            }
-//        }
-//
-//        Stock stock = stockService.getStock(s);
-//        stock.setQuotes(quoteService.findByIdStock(stock.getIdStock()));
-//
-//        return StockModel.fromStockEntity(stock);
-//    }
+    @PatchMapping("/{name}")
+    public StockModel patch(@PathVariable String name, @RequestBody QuoteModel quoteModel){
+        System.out.println("nome eh" + name);
+        Stock s = stockService.getStock(name);
+
+        if(s == null)
+            return null;
+
+        if(!CollectionUtils.isEmpty(quoteModel.getQuotes())){
+            for (float p : quoteModel.getQuotes())
+            {
+                Quote q = new Quote();
+                q.setValue(p);
+                q.setStock(s);
+                q = quoteService.save(q);
+            }
+        }
+
+        StockModel model = new StockModel();
+        model = model.fromStockEntity(s);
+        return model;
+    }
 
 }
