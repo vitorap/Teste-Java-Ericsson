@@ -1,6 +1,7 @@
 package ap.vitor.testeEricsson.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,9 +22,13 @@ public class StockService {
         return rep.findByName(name);
     }
 
-    public void deleteStock(String name) {
+    public ResponseEntity deleteStock(String name) {
         Stock s = rep.findByName(name);
+        if (s == null) {
+            return ResponseEntity.notFound().build();
+        }
         rep.delete(s);
+        return ResponseEntity.ok().build();
     }
 
     public Stock save(Stock stock) {

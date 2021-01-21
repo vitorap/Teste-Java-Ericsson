@@ -7,6 +7,8 @@ import ap.vitor.testeEricsson.domain.QuoteService;
 import ap.vitor.testeEricsson.domain.Stock;
 import ap.vitor.testeEricsson.domain.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,36 +29,37 @@ public class StockController {
 //    Read All Stock
 //    URL: http://<host>:<port>/stock HTTP Method: GET
     @GetMapping()
-    public Iterable<StockModel> get() {
+    public ResponseEntity<Iterable<StockModel>> get() {
         List<StockModel> models = new ArrayList<>();
         List<Stock> stocks = (List<Stock>) stockService.getStocks();
 
         for (Stock s : stocks) {
             models.add(StockModel.fromStockEntity(s));
         }
-
-        return models;
+        return models.isEmpty()?
+                ResponseEntity.noContent().build():
+                ResponseEntity.ok(models);
     }
 
 //    Read Stock by Name
 //    URL: http://<host>:<port>/stock?name=<stock_name> HTTP Method: GET
     @GetMapping(params = "name")
-    public StockModel get(@RequestParam("name") String name) {
+    public ResponseEntity<StockModel> get(@RequestParam("name") String name) {
         Stock s = stockService.getStock(name);
 
         if (s == null)
-            return null;
+            return ResponseEntity.notFound().build();
 
         StockModel model = new StockModel();
         model = model.fromStockEntity(s);
 
-        return model;
+        return ResponseEntity.ok(model);
     }
 
 //    Create Stock
 //    URL: http://<host>:<port>/stock HTTP Method: POST
     @PostMapping
-    public StockModel post(@RequestBody StockModel stockModel) {
+    public ResponseEntity<StockModel> post(@RequestBody StockModel stockModel) {
         Stock s = new Stock();
         s.setName(stockModel.getName());
         s = stockService.save(s);
@@ -74,18 +77,18 @@ public class StockController {
         Stock stock = stockService.getStock(s);
         stock.setQuotes(quoteService.findByIdStock(stock.getIdStock()));
 
-        return StockModel.fromStockEntity(stock);
+        return ResponseEntity.ok(StockModel.fromStockEntity(stock));
     }
 
 //    Update Stock
 //    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: PATCH
     @PatchMapping("/{name}")
-    public StockModel patch(@PathVariable String name, @RequestBody QuoteModel quoteModel) {
+    public ResponseEntity<StockModel> patch(@PathVariable String name, @RequestBody QuoteModel quoteModel) {
         System.out.println("nome eh" + name);
         Stock s = stockService.getStock(name);
 
         if (s == null)
-            return null;
+            return ResponseEntity.notFound().build();
 
         if (!CollectionUtils.isEmpty(quoteModel.getQuotes())) {
             for (float p : quoteModel.getQuotes()) {
@@ -98,15 +101,14 @@ public class StockController {
 
         StockModel model = new StockModel();
         model = model.fromStockEntity(s);
-        return model;
+        return ResponseEntity.ok(model);
     }
 
 //    Delete Stock
 //    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: DELETE
     @DeleteMapping("/{name}")
-    public void delete(@PathVariable String name) {
-
-        stockService.deleteStock(name);
+    public ResponseEntity delete(@PathVariable String name) {
+        return stockService.deleteStock(name);
     }
 
 }
