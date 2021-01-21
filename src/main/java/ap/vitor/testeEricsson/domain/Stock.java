@@ -1,13 +1,18 @@
 package ap.vitor.testeEricsson.domain;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Stock {
+
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -16,9 +21,6 @@ public class Stock {
     @Column(unique = true, nullable = false)
     private String name;
 
-    //O lazy faz trazer só os dados que queremos
-    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="stock")
     private List<Quote> quotes;
-
-
 }
