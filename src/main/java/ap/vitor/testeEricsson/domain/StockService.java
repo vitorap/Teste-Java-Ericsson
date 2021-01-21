@@ -24,6 +24,10 @@ public class StockService {
         return rep.findByName(name);
     }
 
+    public void deleteStock(String name) {
+        Stock s = rep.findByName(name);
+        rep.delete(s);
+    }
 
 
 //    public Optional<Stock> getStockById(Long idStock) {

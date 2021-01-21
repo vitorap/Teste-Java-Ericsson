@@ -113,4 +113,13 @@ public class StockController {
         return model;
     }
 
+//    Delete Stock
+//    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: DELETE
+
+    @DeleteMapping("/{name}")
+    public void delete(@PathVariable String name){
+
+        stockService.deleteStock(name);
+    }
+
 }
