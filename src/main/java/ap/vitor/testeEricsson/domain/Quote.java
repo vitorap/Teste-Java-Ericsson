@@ -19,8 +19,6 @@ public class Quote {
     @Column(nullable = false)
     private Long idQuote;
 
-
-//    sera que esse seria um jeito melhor de relacionar com o pai?
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idStock")
     @JsonIgnore

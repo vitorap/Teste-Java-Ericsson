@@ -24,9 +24,6 @@ public class StockService {
         return rep.findByName(name);
     }
 
-    public Stock getStockByName(String name){
-        return rep.findByName(name);
-    }
 
 
 //    public Optional<Stock> getStockById(Long idStock) {

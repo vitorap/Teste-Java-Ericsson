@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/stock")
@@ -47,7 +46,7 @@ public class StockController {
     @GetMapping(params = "name")
     public StockModel get(@RequestParam("name") String name){
 
-        Stock s = stockService.getStockByName(name);
+        Stock s = stockService.getStock(name);
 
         if(s == null)
             return null;
@@ -85,4 +84,31 @@ public class StockController {
 
         return StockModel.fromStockEntity(stock);
     }
+
+//    Update Stock
+//    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: PATCH
+
+
+//    @PatchMapping(params = "name")
+//    public StockModel patch(@RequestParam("name") String name @RequestBody StockModel stockModel){
+//        Stock s = stockService.getStockByName(name);
+//
+//
+//        if(!CollectionUtils.isEmpty(stockModel.getQuotes())){
+//            for (float p : stockModel.getQuotes())
+//            {
+//                Quote q = new Quote();
+//                q.setValue(p);
+//                q.setStock(s);
+//
+//                q = quoteService.save(q);
+//            }
+//        }
+//
+//        Stock stock = stockService.getStock(s);
+//        stock.setQuotes(quoteService.findByIdStock(stock.getIdStock()));
+//
+//        return StockModel.fromStockEntity(stock);
+//    }
+
 }
