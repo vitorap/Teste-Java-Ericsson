@@ -12,10 +12,8 @@ import java.util.List;
 public class StockModel
 {
     private String name;
-
     private List<Float> quotes;
 
-    // GET e SET para os atributos
 
     public static StockModel fromStockEntity(Stock s)
     {
@@ -33,4 +31,5 @@ public class StockModel
 
         return model;
     }
+
 }

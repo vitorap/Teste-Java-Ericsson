@@ -24,6 +24,11 @@ public class StockService {
         return rep.findByName(name);
     }
 
+    public Stock getStockByName(String name){
+        return rep.findByName(name);
+    }
+
+
 //    public Optional<Stock> getStockById(Long idStock) {
 //        return rep
 //
@@ -43,4 +48,6 @@ public class StockService {
     public Stock save(Stock stock) {
        return  rep.save(stock);
     }
+
+
 }

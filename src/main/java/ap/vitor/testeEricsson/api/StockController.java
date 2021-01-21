@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/stock")
 public class StockController {
 
     @Autowired
@@ -21,6 +22,10 @@ public class StockController {
 
     @Autowired
     private QuoteService quoteService;
+
+
+//    Read All Stock
+//    URL: http://<host>:<port>/stock HTTP Method: GET
 
     @GetMapping()
     public Iterable<StockModel> get() {
@@ -35,11 +40,26 @@ public class StockController {
         return models;
     }
 
+//    Read Stock by Name
+//    URL: http://<host>:<port>/stock?name=<stock_name> HTTP Method: GET
 
-//    @GetMapping("/{idStock}")
-//    public Optional<Stock> get(@PathVariable("idStock") Long idStock){
-//        return service.getStockById(idStock);
-//    }
+
+    @GetMapping(params = "name")
+    public StockModel get(@RequestParam("name") String name){
+
+        Stock s = stockService.getStockByName(name);
+
+        if(s == null)
+            return null;
+
+        StockModel model = new StockModel();
+        model = model.fromStockEntity(s);
+
+        return model;
+    }
+
+//    Create Stock
+//    URL: http://<host>:<port>/stock HTTP Method: POST
 
 
     @PostMapping
