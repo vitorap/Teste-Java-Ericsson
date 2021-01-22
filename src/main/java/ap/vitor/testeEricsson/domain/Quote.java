@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+//=======================================================================
+//A classe Quote define o objeto quote e seus metodos
+//=======================================================================
 @Entity
 @Data
 @NoArgsConstructor

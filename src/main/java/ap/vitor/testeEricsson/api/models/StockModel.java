@@ -8,6 +8,9 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//A classe StockModel é um DTO que conversa entre entre o banco de dados e as chamadas HTTP
+
 @Data
 public class StockModel {
     private String name;

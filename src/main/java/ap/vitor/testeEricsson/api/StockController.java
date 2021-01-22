@@ -6,15 +6,18 @@ import ap.vitor.testeEricsson.domain.Quote;
 import ap.vitor.testeEricsson.domain.QuoteService;
 import ap.vitor.testeEricsson.domain.Stock;
 import ap.vitor.testeEricsson.domain.StockService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
+
+//=======================================================================
+//Essa classe representa a api que controla as chamadas,
+//=======================================================================
 @RestController
 @RequestMapping("/stock")
 public class StockController {
@@ -26,8 +29,7 @@ public class StockController {
     private QuoteService quoteService;
 
 
-//    Read All Stock
-//    URL: http://<host>:<port>/stock HTTP Method: GET
+//    Read All Stock   URL: http://<host>:<port>/stock HTTP Method: GET
     @GetMapping()
     public ResponseEntity<Iterable<StockModel>> get() {
         List<StockModel> models = new ArrayList<>();
@@ -41,8 +43,7 @@ public class StockController {
                 ResponseEntity.ok(models);
     }
 
-//    Read Stock by Name
-//    URL: http://<host>:<port>/stock?name=<stock_name> HTTP Method: GET
+//    Read Stock by Name  URL: http://<host>:<port>/stock?name=<stock_name> HTTP Method: GET
     @GetMapping(params = "name")
     public ResponseEntity<StockModel> get(@RequestParam("name") String name) {
         Stock s = stockService.getStock(name);
@@ -56,8 +57,7 @@ public class StockController {
         return ResponseEntity.ok(model);
     }
 
-//    Create Stock
-//    URL: http://<host>:<port>/stock HTTP Method: POST
+//    Create Stock   URL: http://<host>:<port>/stock HTTP Method: POST
     @PostMapping
     public ResponseEntity<StockModel> post(@RequestBody StockModel stockModel) {
         Stock s = new Stock();
@@ -80,11 +80,9 @@ public class StockController {
         return ResponseEntity.ok(StockModel.fromStockEntity(stock));
     }
 
-//    Update Stock
-//    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: PATCH
+//    Update Stock   URL: http://<host>:<port>/stock/<stock_name> HTTP Method: PATCH
     @PatchMapping("/{name}")
     public ResponseEntity<StockModel> patch(@PathVariable String name, @RequestBody QuoteModel quoteModel) {
-        System.out.println("nome eh" + name);
         Stock s = stockService.getStock(name);
 
         if (s == null)
@@ -104,8 +102,7 @@ public class StockController {
         return ResponseEntity.ok(model);
     }
 
-//    Delete Stock
-//    URL: http://<host>:<port>/stock/<stock_name> HTTP Method: DELETE
+//    Delete Stock   URL: http://<host>:<port>/stock/<stock_name> HTTP Method: DELETE
     @DeleteMapping("/{name}")
     public ResponseEntity delete(@PathVariable String name) {
         return stockService.deleteStock(name);
